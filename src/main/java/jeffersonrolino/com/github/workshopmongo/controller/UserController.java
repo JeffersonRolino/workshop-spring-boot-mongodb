@@ -1,6 +1,7 @@
 package jeffersonrolino.com.github.workshopmongo.controller;
 
 import jeffersonrolino.com.github.workshopmongo.domain.User;
+import jeffersonrolino.com.github.workshopmongo.dto.UserDTO;
 import jeffersonrolino.com.github.workshopmongo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,8 +19,10 @@ public class UserController {
     private UserService userService;
 
     @GetMapping()
-    public ResponseEntity<List<User>> findAll(){
+    public ResponseEntity<List<UserDTO>> findAll(){
         List<User> list = userService.findAll();
-        return ResponseEntity.ok().body(list);
+        List<UserDTO> userDTOList = list.stream().map(UserDTO::new).toList();
+
+        return ResponseEntity.ok().body(userDTOList);
     }
 }
