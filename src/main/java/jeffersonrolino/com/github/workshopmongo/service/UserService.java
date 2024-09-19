@@ -1,6 +1,7 @@
 package jeffersonrolino.com.github.workshopmongo.service;
 
 import jeffersonrolino.com.github.workshopmongo.domain.User;
+import jeffersonrolino.com.github.workshopmongo.dto.UserDTO;
 import jeffersonrolino.com.github.workshopmongo.repository.UserRepository;
 import jeffersonrolino.com.github.workshopmongo.service.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,5 +29,13 @@ public class UserService {
         else {
             throw new ObjectNotFoundException("Objeto não encontrado");
         }
+    }
+
+    public User insert(User user){
+        return userRepository.insert(user);
+    }
+
+    public User fromDTO(UserDTO userDTO){
+        return new User(userDTO.getId(), userDTO.getName(), userDTO.getEmail());
     }
 }
