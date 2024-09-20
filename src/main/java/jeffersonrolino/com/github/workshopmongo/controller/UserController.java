@@ -1,5 +1,6 @@
 package jeffersonrolino.com.github.workshopmongo.controller;
 
+import jeffersonrolino.com.github.workshopmongo.domain.Post;
 import jeffersonrolino.com.github.workshopmongo.domain.User;
 import jeffersonrolino.com.github.workshopmongo.dto.UserDTO;
 import jeffersonrolino.com.github.workshopmongo.service.UserService;
@@ -48,10 +49,15 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable String id){
         userService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping(value = "/{id}/posts")
+    public ResponseEntity<List<Post>> findPostsFromUser(@PathVariable String id){
+        User user = userService.findById(id);
+        return ResponseEntity.ok().body(user.getPosts());
     }
 }
