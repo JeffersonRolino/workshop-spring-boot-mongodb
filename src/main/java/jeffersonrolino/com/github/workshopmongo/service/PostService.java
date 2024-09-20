@@ -1,12 +1,12 @@
 package jeffersonrolino.com.github.workshopmongo.service;
 
 import jeffersonrolino.com.github.workshopmongo.domain.Post;
-import jeffersonrolino.com.github.workshopmongo.domain.User;
 import jeffersonrolino.com.github.workshopmongo.repository.PostRepository;
 import jeffersonrolino.com.github.workshopmongo.service.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -23,5 +23,9 @@ public class PostService {
         else {
             throw new ObjectNotFoundException("Post não encontrado");
         }
+    }
+
+    public List<Post> findByTitle(String text){
+        return postRepository.findByTitleContainingIgnoreCase(text);
     }
 }
